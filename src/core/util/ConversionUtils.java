@@ -1,4 +1,4 @@
-package core;
+package core.util;
 
 import java.awt.Polygon;
 import java.awt.Shape;

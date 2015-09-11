@@ -9,11 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import core.FileUtils;
-import core.ImageUtils;
 import core.Section;
-import core.SectionUtils;
-import core.ConversionUtils;
+import core.util.ConversionUtils;
+import core.util.FileUtils;
+import core.util.ImageUtils;
+import core.util.SectionUtils;
 
 public class App {
 	private static String ouputDirectory = "output";
@@ -64,14 +64,16 @@ public class App {
 	
 	public static void writeSections(Map<String, Section> sections, String directory) {
 		for (Entry<String, Section> entry : sections.entrySet()) {
-	    	Section section = entry.getValue();
-	    	
-	    	ImageUtils.writeImage(section.getImage(), directory, entry.getKey() + ".png");
+	    	SectionUtils.writeSection(entry.getValue(), directory);
 	    }
 	}
 	
 	public static void combineSections(Map<String, Section> sections, String config, String filename, String directory) {
-		Image out = new BufferedImage(combinedImageWidth, combinedImageHeight, BufferedImage.TYPE_INT_ARGB);
+		ImageUtils.writeImage(combineSections(sections, config), directory, filename);
+	}
+	
+	public static Image combineSections(Map<String, Section> sections, String config) {
+		Image out = ImageUtils.createImage(combinedImageWidth, combinedImageHeight);
 		Graphics g = out.getGraphics();
 		BufferedReader reader = null;
 		String line = null;
@@ -107,7 +109,7 @@ public class App {
 			}
 		}
 		
-		ImageUtils.writeImage(out, directory, filename);
+		return out;
 	}
 	
 	public static void loadSections(Map<String, Section> sections, Image image, String configName, String suffix) {

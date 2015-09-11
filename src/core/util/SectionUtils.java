@@ -1,7 +1,9 @@
-package core;
+package core.util;
 
 import java.awt.Image;
 import java.awt.Point;
+
+import core.Section;
 
 public class SectionUtils {
 	public static Image cropSection(Image image, Section section) {
@@ -37,5 +39,9 @@ public class SectionUtils {
 		section.setOffset(new Point(shapeOffset[0], shapeOffset[1]));
 		
 		return section;
+	}
+	
+	public static void writeSection(Section section, String directory) {
+	    ImageUtils.writeImage(section.getImage(), directory, section.getName() + ".png");
 	}
 }
