@@ -1,12 +1,14 @@
 package core;
 
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.Shape;
 
 public class Section {
 	private String name;
 	private Shape shape;
-	private int xOffset;
-	private int yOffset;
+	private Point offset;
+	private Image image;
 
 	public String getName() {
 		return name;
@@ -24,19 +26,19 @@ public class Section {
 		this.shape = shape;
 	}
 
-	public int getxOffset() {
-		return xOffset;
+	public Point getOffset() {
+		return offset;
 	}
 
-	public void setxOffset(int xOffset) {
-		this.xOffset = xOffset;
+	public void setOffset(Point offset) {
+		this.offset = offset;
 	}
 
-	public int getyOffset() {
-		return yOffset;
+	public Image getImage() {
+		return image;
 	}
-
-	public void setyOffset(int yOffset) {
-		this.yOffset = yOffset;
+	
+	public void setImage(Image image) {
+		this.image = image;
 	}
 }

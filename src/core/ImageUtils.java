@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.awt.image.RescaleOp;
@@ -15,8 +17,7 @@ import javax.imageio.ImageIO;
 public class ImageUtils {
 	public static Image loadImage(String filename) {
 		try {
-			ClassLoader loader = ImageUtils.class.getClassLoader();
-			return ImageIO.read(loader.getResourceAsStream("resources/" + filename));
+			return ImageIO.read(FileUtils.getInputStream(filename, true));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -26,12 +27,8 @@ public class ImageUtils {
 
 	public static void writeImage(Image img, String directory, String filename) {
 		try {
-			StringBuffer path = new StringBuffer();
-			if (directory != null && !directory.isEmpty()) {
-				path.append(directory).append('\\');
-			}
-			path.append(filename);
-			File outputfile = new File(path.toString());
+			String path = FileUtils.toPath(directory, filename);
+			File outputfile = new File(path);
 			// http://stackoverflow.com/a/2833883/1762224
 			outputfile.getParentFile().mkdirs();
 			ImageIO.write((RenderedImage) img, "png", outputfile);
@@ -70,5 +67,18 @@ public class ImageUtils {
 		rescaleOp.filter((BufferedImage) image, (BufferedImage) image);
 
 		return image;
+	}
+	
+	public static Image flipImage(Image image) {
+		BufferedImage result = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_4BYTE_ABGR);
+		
+		// Flip the image horizontally
+		AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
+		tx.translate(-image.getWidth(null), 0);
+		
+		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+		op.filter((BufferedImage) image, result);
+		
+		return result;
 	}
 }
