@@ -13,7 +13,7 @@ import core.FileUtils;
 import core.ImageUtils;
 import core.Section;
 import core.SectionUtils;
-import core.TransformationUtils;
+import core.ConversionUtils;
 
 public class App {
 	private static String ouputDirectory = "output";
@@ -47,16 +47,17 @@ public class App {
 	
 	public static void processSkin(Map<String, Section> sections, String config, String filename, String suffix) {
 		Image skin = ImageUtils.loadImage(filename);
+		
 		loadSections(sections, skin, config, suffix);
 		processImage(skin, sections, suffix);
 	}
 	
-	public static void processImage(Image img, Map<String, Section> sections, String suffix) {
+	public static void processImage(Image image, Map<String, Section> sections, String suffix) {
 		for (Entry<String, Section> entry : sections.entrySet()) {
 			if (entry.getKey().endsWith(suffix)) {
 				Section section = entry.getValue();
 		    	
-		    	section.setImage(SectionUtils.cropSection(img, section));
+		    	section.setImage(SectionUtils.cropSection(image, section));
 			}
 	    }
 	}
@@ -70,7 +71,7 @@ public class App {
 	}
 	
 	public static void combineSections(Map<String, Section> sections, String config, String filename, String directory) {
-		Image out = new BufferedImage(combinedImageWidth, combinedImageHeight, BufferedImage.TYPE_4BYTE_ABGR);
+		Image out = new BufferedImage(combinedImageWidth, combinedImageHeight, BufferedImage.TYPE_INT_ARGB);
 		Graphics g = out.getGraphics();
 		BufferedReader reader = null;
 		String line = null;
@@ -80,13 +81,17 @@ public class App {
 			
 			while ((line = reader.readLine()) != null)   {
 				String[] data = line.split("\\|");
-				int[] off = TransformationUtils.mapToInt(data[1], ",");
+				int[] off = ConversionUtils.mapToInt(data[1], ",");
 				Section section = sections.get(data[0]);
 				Point offset = new Point(off[0], off[1]);
 				boolean mirror = Boolean.parseBoolean(data[2]);
-				int direction = mirror ? -1 : 1;
+				BufferedImage image = (BufferedImage) section.getImage();
 				
-				g.drawImage(section.getImage(), direction * offset.x, offset.y, null);
+				if (mirror) {
+					image = ImageUtils.flipHorizontally(image);
+				}
+				
+				g.drawImage(image, offset.x, offset.y, null);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

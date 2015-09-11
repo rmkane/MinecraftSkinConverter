@@ -3,7 +3,7 @@ package core;
 import java.awt.Polygon;
 import java.awt.Shape;
 
-public class TransformationUtils {
+public class ConversionUtils {
 	public static int[] mapToInt(String[] values) {
 		int[] result = new int[values.length];
 		

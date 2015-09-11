@@ -29,11 +29,11 @@ public class SectionUtils {
 	public static Section parseSection(String data, String suffix) {
 		Section section = new Section();
 		String[] shapeInfo = data.split("\\|");
-		int[] shapeOffset = TransformationUtils.mapToInt(shapeInfo[1], ",");
-		int[] shapePath = TransformationUtils.mapToInt(shapeInfo[2], "[,;]");
+		int[] shapeOffset = ConversionUtils.mapToInt(shapeInfo[1], ",");
+		int[] shapePath = ConversionUtils.mapToInt(shapeInfo[2], "[,;]");
 
 		section.setName(String.format("%s-%s", shapeInfo[0], suffix));
-		section.setShape(TransformationUtils.pointsToShape(shapeOffset, shapePath));
+		section.setShape(ConversionUtils.pointsToShape(shapeOffset, shapePath));
 		section.setOffset(new Point(shapeOffset[0], shapeOffset[1]));
 		
 		return section;

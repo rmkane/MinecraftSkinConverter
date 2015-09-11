@@ -1,11 +1,11 @@
 package core;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.awt.image.RescaleOp;
@@ -29,8 +29,7 @@ public class ImageUtils {
 		try {
 			String path = FileUtils.toPath(directory, filename);
 			File outputfile = new File(path);
-			// http://stackoverflow.com/a/2833883/1762224
-			outputfile.getParentFile().mkdirs();
+			outputfile.getParentFile().mkdirs(); // stackoverflow.com/a/2833883
 			ImageIO.write((RenderedImage) img, "png", outputfile);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -69,16 +68,61 @@ public class ImageUtils {
 		return image;
 	}
 	
-	public static Image flipImage(Image image) {
-		BufferedImage result = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_4BYTE_ABGR);
+	public static BufferedImage flipHorizontally(BufferedImage image) {
+		return transform(image, -1, 1, -image.getWidth(), 0);
+    }
+	
+	public static BufferedImage flipVertically(BufferedImage image) {
+		return transform(image, 1, -1, 0, -image.getHeight());
+    }
+	
+	public static BufferedImage createImage(BufferedImage image) {
+		return createImage(image, BufferedImage.TYPE_INT_ARGB);
+	}
+	
+	public static BufferedImage createImage(Image image, int type) {
+		return new BufferedImage(image.getWidth(null), image.getHeight(null), type);
+	}
+	
+	public static BufferedImage rotateLeft(BufferedImage image) {
+		return rotateCenter(image, -Math.PI / 2);
+    }
+	
+	public static BufferedImage rotateRight(BufferedImage image) {
+		return rotateCenter(image, Math.PI / 2);
+    }
+	
+	public static BufferedImage rotate180(BufferedImage image) {
+		return rotateCenter(image, Math.PI);
+    }
+	
+	private static BufferedImage rotateCenter(BufferedImage image, double theta) {
+		return rotate(image, theta, image.getWidth() / 2, image.getHeight() / 2);
+    }
+	
+	private static BufferedImage rotate(BufferedImage image, double theta, int anchorX, int anchorY) {
+        AffineTransform at = AffineTransform.getRotateInstance(theta, anchorX, anchorY);
+        return createTransformed(image, at);
+    }
+	
+	// stackoverflow.com/a/23458883
+	private static BufferedImage transform(BufferedImage image, int sx, int sy, int dx, int dy) {
+        AffineTransform at = new AffineTransform();
+        
+        at.concatenate(AffineTransform.getScaleInstance(sx, sy));
+        at.concatenate(AffineTransform.getTranslateInstance(dx, dy));
+        
+        return createTransformed(image, at);
+    }
+	
+	private static BufferedImage createTransformed(BufferedImage image, AffineTransform at) {
+		BufferedImage newImage = createImage(image);
+		Graphics2D g = newImage.createGraphics();
 		
-		// Flip the image horizontally
-		AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
-		tx.translate(-image.getWidth(null), 0);
+		g.transform(at);
+		g.drawImage(image, 0, 0, null);
+		g.dispose();
 		
-		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-		op.filter((BufferedImage) image, result);
-		
-		return result;
+		return newImage;
 	}
 }
