@@ -1,4 +1,4 @@
-package core.util;
+package minecraft.core.util;
 
 import java.awt.Polygon;
 import java.awt.Shape;

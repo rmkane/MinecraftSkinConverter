@@ -1,4 +1,4 @@
-package core.util;
+package minecraft.core.util;
 
 import java.io.BufferedReader;
 import java.io.File;

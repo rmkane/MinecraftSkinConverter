@@ -1,9 +1,9 @@
-package core.util;
+package minecraft.core.util;
 
 import java.awt.Image;
 import java.awt.Point;
 
-import core.Section;
+import minecraft.core.Section;
 
 public class SectionUtils {
 	public static Image cropSection(Image image, Section section) {

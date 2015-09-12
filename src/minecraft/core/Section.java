@@ -1,4 +1,4 @@
-package core;
+package minecraft.core;
 
 import java.awt.Image;
 import java.awt.Point;

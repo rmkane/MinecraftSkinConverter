@@ -1,39 +1,23 @@
-import java.util.HashMap;
-import java.util.Map;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
-import core.Section;
-import core.io.SkinReader;
-import core.io.SkinWriter;
-import core.util.FileUtils;
+import minecraft.gui.MainPanel;
 
 public class App {
-	private static String ouputDirectory = "output";
-	private static String configDirectory = "config";
-	private static String readerConfig = FileUtils.toPath(configDirectory, "reader.conf");
-	private static String writerConfig = FileUtils.toPath(configDirectory, "writer.conf");
+	private static final String APPLICATION_NAME = "Mincraft Skin Converter";
 
 	public static void main(String[] args) {
-		example();
-	}
-	
-	public static void example() {
-		String directory = "skins";
-
-		String[] skins = {
-			FileUtils.toPath(directory, "x-tony-stark.png"),
-			FileUtils.toPath(directory, "x-iron-man.png")
-		};
-
-		export(skins, directory, "combined.png");
-	}
-	
-	public static void export(String[] skins, String directory, String exportPath) {
-		Map<String, Section> sections = new HashMap<String, Section>();
-
-		String outDir = FileUtils.toPath(ouputDirectory, directory);
-
-		SkinReader.processSkins(readerConfig, sections, skins);
-		SkinWriter.writeSections(sections, outDir);
-		SkinWriter.writeCombined(writerConfig, sections, exportPath, outDir);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				JFrame frame = new JFrame(APPLICATION_NAME);
+				MainPanel panel = new MainPanel();
+				
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				frame.setContentPane(panel);
+				frame.pack();
+				frame.setLocationRelativeTo(null);
+				frame.setVisible(true);
+			}
+		});
 	}
 }

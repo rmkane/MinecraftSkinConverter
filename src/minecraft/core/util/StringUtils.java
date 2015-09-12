@@ -1,4 +1,4 @@
-package core.util;
+package minecraft.core.util;
 
 public class StringUtils {
 	public static String join(String[] path, String str) {

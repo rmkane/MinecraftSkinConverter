@@ -1,4 +1,4 @@
-package core.io;
+package minecraft.core.io;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -10,10 +10,10 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import core.Section;
-import core.util.ConversionUtils;
-import core.util.FileUtils;
-import core.util.ImageUtils;
+import minecraft.core.Section;
+import minecraft.core.util.ConversionUtils;
+import minecraft.core.util.FileUtils;
+import minecraft.core.util.ImageUtils;
 
 public class SkinWriter {
 	private static int combinedImageWidth = 64;
@@ -64,17 +64,20 @@ public class SkinWriter {
 	
 	public static void combineSection(Graphics g, Map<String, Section> sections, String line) {
 		String[] data = line.split("\\|");
-		int[] off = ConversionUtils.mapToInt(data[1], ",");
 		Section section = sections.get(data[0]);
-		Point offset = new Point(off[0], off[1]);
-		boolean mirror = Boolean.parseBoolean(data[2]);
-		BufferedImage image = (BufferedImage) section.getImage();
+		
+		if (section != null) {
+			int[] off = ConversionUtils.mapToInt(data[1], ",");
+			Point offset = new Point(off[0], off[1]);
+			boolean mirror = Boolean.parseBoolean(data[2]);
+			BufferedImage image = (BufferedImage) section.getImage();
 
-		if (mirror) {
-			image = (BufferedImage) flipLimb(image);
+			if (mirror) {
+				image = (BufferedImage) flipLimb(image);
+			}
+
+			g.drawImage(image, offset.x, offset.y, null);
 		}
-
-		g.drawImage(image, offset.x, offset.y, null);
 	}
 
 	private static Image flipLimb(BufferedImage image) {

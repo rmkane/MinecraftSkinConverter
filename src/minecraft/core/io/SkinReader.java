@@ -1,4 +1,4 @@
-package core.io;
+package minecraft.core.io;
 
 import java.awt.Image;
 import java.io.BufferedReader;
@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import core.Section;
-import core.util.FileUtils;
-import core.util.ImageUtils;
-import core.util.SectionUtils;
+import minecraft.core.Section;
+import minecraft.core.util.FileUtils;
+import minecraft.core.util.ImageUtils;
+import minecraft.core.util.SectionUtils;
 
 public class SkinReader {
 	public static void processSkins(String configPath, Map<String, Section> sections, String[] skinPaths) {
