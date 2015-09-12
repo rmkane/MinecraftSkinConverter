@@ -40,8 +40,4 @@ public class SectionUtils {
 		
 		return section;
 	}
-	
-	public static void writeSection(Section section, String directory) {
-	    ImageUtils.writeImage(section.getImage(), directory, section.getName() + ".png");
-	}
 }

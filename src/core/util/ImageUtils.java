@@ -73,7 +73,7 @@ public class ImageUtils {
 	}
 
 	public static Image cropImage(Image img, int x, int y, int w, int h) {
-		BufferedImage out = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage out = createImage(w, h);
 		Graphics g = out.getGraphics();
 		BufferedImage sub = ((BufferedImage) img).getSubimage(x, y, w, h);
 
