@@ -2,8 +2,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import core.Section;
-import core.SkinReader;
-import core.SkinWriter;
+import core.io.SkinReader;
+import core.io.SkinWriter;
 import core.util.FileUtils;
 
 public class App {

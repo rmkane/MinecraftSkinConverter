@@ -1,4 +1,4 @@
-package core;
+package core.io;
 
 import java.awt.Image;
 import java.io.BufferedReader;
@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import core.Section;
 import core.util.FileUtils;
 import core.util.ImageUtils;
 import core.util.SectionUtils;
