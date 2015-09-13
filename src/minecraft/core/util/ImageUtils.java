@@ -29,6 +29,20 @@ public class ImageUtils {
 
 		return null;
 	}
+	
+	public static BufferedImage copy(Image original) {
+		if (original == null) {
+			return null;
+		}
+		
+		BufferedImage copied = ImageUtils.createImage(original);
+		Graphics g = copied.getGraphics();
+		
+		g.drawImage(original, 0, 0, null);
+		g.dispose();
+		
+		return copied;
+	}
 
 	public static void writeImage(Image img, String directory, String filename) {
 		try {
@@ -195,6 +209,7 @@ public class ImageUtils {
 		AffineTransformOp scaleOp = new AffineTransformOp(at, interpolationType);
 
 		scaleOp.filter(image, filtered);
+		
 		return filtered;
 	}
 

@@ -13,16 +13,12 @@ public abstract class GridBagLayoutPanel extends LayoutPanel {
 
 	public GridBagLayoutPanel() {
 		super(new GridBagLayout());
-		
-		init();
 	}
 
 	public GridBagLayoutPanel(int width, int height) {
 		super(new GridBagLayout());
 
 		this.setPreferredSize(new Dimension(width, height));
-		
-		init();
 	}
 
 	public void addComponent(Container container, JComponent component, int row, int col) {

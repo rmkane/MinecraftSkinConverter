@@ -19,12 +19,6 @@ public class GuiUtils {
 		return createMenuItem(new JMenu(label), mnemonic, description, null);
 	}
 
-	/**
-	 * @TODO: This does not currently work.
-	 *
-	 * @param actionClass
-	 * @return
-	 */
 	public static <T extends Action> JMenuItem createMenu(Class<T> actionClass) {
 		try {
 			return new JMenuItem(actionClass.newInstance());

@@ -3,12 +3,13 @@ package minecraft.gui.skin;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -20,78 +21,81 @@ public class SkinPanel extends BorderLayoutPanel {
 
 	// Skin file filter
 	protected static final FileNameExtensionFilter EXT_FILTER = new FileNameExtensionFilter("Skin Files", "png", "gif");
-	
+
 	// Create a file chooser
 	protected final JFileChooser EXPLORER = new JFileChooser("./");
-	
-	protected ImageCanvas canvas;
-	protected JLabel name;
-	protected JButton openBtn;
-	protected int scale;
-	
+
+	private ImageCanvas canvas;
+	private JLabel name;
+	private JPanel buttonPanel;
+	private JButton actionBtn;
+	private int scale;
+
 	private int imgWidth;
 	private int imgHeight;
-	
+
 	protected String defaultLabelText;
 	protected String buttonText;
 
-	public SkinPanel() {
-		super();
-		
-		init();
-	}
-	
 	public SkinPanel(int imgWidth, int imgHeight, int scale, String defaultLabelText, String buttonText) {
 		super();
-		
+
 		this.imgWidth = imgWidth;
 		this.imgHeight = imgHeight;
 		this.scale = scale;
-		
+
 		this.defaultLabelText = defaultLabelText;
 		this.buttonText = buttonText;
-		
+
 		init();
 	}
-	
+
 	@Override
 	protected void initialize() {
+		this.buttonPanel = new JPanel(new GridLayout(1, 2));
 		this.canvas = new ImageCanvas(2, true, true);
 		this.name = new JLabel(defaultLabelText);
-		this.openBtn = new JButton(buttonText);
+		this.actionBtn = new JButton(buttonText);
 	}
 
 	@Override
 	protected void createChildren() {
-		canvas.setPreferredSize(new Dimension(imgWidth * scale, imgHeight * scale));
-		
+		getCanvas().setPreferredSize(new Dimension(imgWidth * scale, imgHeight * scale));
+
 		name.setHorizontalAlignment(SwingConstants.CENTER);
 		name.setBackground(Color.WHITE);
-		
-		openBtn.setPreferredSize(new Dimension(60, 24));
-				
-		this.add(name,   BorderLayout.NORTH);
-		this.add(canvas, BorderLayout.CENTER);
-		this.add(openBtn, BorderLayout.SOUTH);
+
+		getActionBtn().setPreferredSize(new Dimension(60, 24));
+
+		getButtonPanel().add(getActionBtn());
+
+		this.add(name, BorderLayout.NORTH);
+		this.add(getCanvas(), BorderLayout.CENTER);
+		this.add(getButtonPanel(), BorderLayout.SOUTH);
 	}
-	
-	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		
-		
-	}
-	
+
 	public void setName(String filename) {
 		this.name.setText(filename);
 	}
-	
+
 	public BufferedImage getImage() {
-		return canvas.getImage();
+		return getCanvas().getImage();
 	}
 
 	public void setImage(BufferedImage image) {
-		this.canvas.setImage(image);
+		this.getCanvas().setImage(image);
 		this.repaint();
+	}
+
+	public JButton getActionBtn() {
+		return actionBtn;
+	}
+
+	public ImageCanvas getCanvas() {
+		return canvas;
+	}
+
+	protected JPanel getButtonPanel() {
+		return buttonPanel;
 	}
 }

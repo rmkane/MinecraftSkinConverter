@@ -75,7 +75,7 @@ public class ImageCanvas extends JPanel {
 		if (showAlphaTile) { 
 			ImageUtils.tileImage(g, alphaTileImg, panelWidth, panelHeight);
 		}
-		
+
 		g.setColor(Color.BLACK);
 		g.drawRect(0, 0, panelWidth-1, panelHeight-1);
 
@@ -96,7 +96,7 @@ public class ImageCanvas extends JPanel {
 
 			g.drawImage(this.sourceImage, padding, padding, imgWidth, imgHeight, null);
 		}
-		
+
 		g.dispose();
 	}
 
@@ -106,10 +106,8 @@ public class ImageCanvas extends JPanel {
 
 	public void setImage(BufferedImage image) {
 		this.sourceImage = image;
-		
-		if (this.scaleImage) {
-			this.calculateScaledImage();
-		}
+
+		this.calculateScaledImage();
 	}
 
 	protected int getPadding() {
@@ -126,11 +124,11 @@ public class ImageCanvas extends JPanel {
 
 	protected void setScaleImage(boolean scaleImage) {
 		this.scaleImage = scaleImage;
-		
+
 		if (this.scaleImage && this.sourceImage != null) {
 			this.calculateScaledImage();
 		}
-		
+
 		this.repaint();
 	}
 }
