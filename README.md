@@ -5,7 +5,7 @@ This project will convert pre-1.8 skins into 1.8 skins. You can choose to conver
 ## Table of Contents
 
 - [About](#about)
-- [Build](#build)
+- [Building the Project](#building-the-project)
 - [Contribute](#contribute)
 - [License](#license)
 
@@ -17,9 +17,34 @@ The size of the skin file was increased from [64 x 32 pixels][3] to [64 x 64 pix
 
 The right and left arms and legs can now be edited independently. Previously, you could only edit the right arm and leg and they would be mirrored to produce the left arm and leg. 
 
-## Build
+## Building the Project
 
 In order to build this project, you will need to use [Eclipse][5] and [Gradle][6].
+
+### Set Up Environment Variables
+
+The following variables should point to their installation directory.
+
+- `JAVA_HOME`
+- `GRADLE_HOME`
+
+### Convert to Eclipse Project
+
+Before the project can be imported into Eclipse, you must convert it to an Eclipse project. This task will generate the `.settings/`, `.classpath`, and `.project` files.
+
+    C:\Eclipse\workspace\MinecraftSkinConverter>gradle eclipse --daemon
+
+### Export Project to JAR File
+
+This project can be exported to a standalone JAR file, by executing the following task.
+
+    C:\Eclipse\workspace\MinecraftSkinConverter>gradle jar --daemon
+
+### Execute the JAR File
+
+You can either navigate to the `build/libs/` directory in the project and double-click to launch the application, or you can launch it from the terminal with the command below.
+
+    C:\Eclipse\workspace\MinecraftSkinConverter>java -jar build\libs\MinecraftSkinConverter-1.0.jar
 
 ## Contribute
 
