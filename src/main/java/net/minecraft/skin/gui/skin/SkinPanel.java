@@ -23,7 +23,7 @@ public class SkinPanel extends BorderLayoutPanel {
 	protected static final FileNameExtensionFilter EXT_FILTER = new FileNameExtensionFilter("Skin Files", "png", "gif");
 
 	// Create a file chooser
-	protected final JFileChooser EXPLORER = new JFileChooser("./");
+	protected final JFileChooser EXPLORER = new JFileChooser(System.getenv("user.dir"));
 
 	private ImageCanvas canvas;
 	private JLabel name;

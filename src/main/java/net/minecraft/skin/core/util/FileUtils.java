@@ -23,6 +23,6 @@ public class FileUtils {
 	}
 	
 	public static String toPath(String... path) {
-		return StringUtils.join(path, File.separator);
+		return StringUtils.join(path, "/");
 	}
 }

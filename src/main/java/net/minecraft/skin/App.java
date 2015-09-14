@@ -1,6 +1,4 @@
 package net.minecraft.skin;
-import java.io.File;
-
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -12,10 +10,10 @@ import net.minecraft.skin.gui.MainPanel;
 
 public class App {
 	private static final String APPLICATION_NAME = "Mincraft Skin Converter";
-	
+
 	public static void main(String[] args) {
 		setLookAndFeel();
-		
+
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				JFrame frame = new JFrame(APPLICATION_NAME);
@@ -23,7 +21,7 @@ public class App {
 
 				// Inject config map.
 				panel.setConfigMap(defaultConfigMap());
-				
+
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setContentPane(panel);
 				frame.pack();
@@ -32,7 +30,7 @@ public class App {
 			}
 		});
 	}
-	
+
 	public static void setLookAndFeel() {
 		try {
 			// Set cross-platform Java L&F (also called "Metal")
@@ -47,20 +45,20 @@ public class App {
 			// handle exception
 		}
 	}
-	
+
 	public static ConfigMap defaultConfigMap() {
 		return new ConfigMap(getConfigDirectory());
 	}
-	
+
 	public static String getConfigDirectory() {
 		return getResourceDirectory("config");
 	}
-	
+
 	public static String getResourceDirectory(String resourceDirectory) {
 		return FileUtils.toPath(getRootPackage(App.class), resourceDirectory);
 	}
-	
+
 	private static String getRootPackage(Class<?> clazz) {
-	    return clazz.getPackage().getName().replace(".", File.separator);
+		return clazz.getPackage().getName().replace(".", "/");
 	}
 }
