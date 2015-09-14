@@ -10,9 +10,9 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import net.minecraft.skin.App;
 import net.minecraft.skin.core.Section;
 import net.minecraft.skin.core.util.ConversionUtils;
+import net.minecraft.skin.core.util.FileUtils;
 import net.minecraft.skin.core.util.ImageUtils;
 
 public class SkinWriter {
@@ -40,7 +40,7 @@ public class SkinWriter {
 		String line = null;
 
 		try {
-			reader = App.loadConfig(configPath);
+			reader = FileUtils.loadConfig(configPath);
 
 			while ((line = reader.readLine()) != null)   {
 				combineSection(g, sections, line);
