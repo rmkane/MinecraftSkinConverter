@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import net.minecraft.skin.App;
 import net.minecraft.skin.core.Section;
-import net.minecraft.skin.core.util.FileUtils;
 import net.minecraft.skin.core.util.ImageUtils;
 import net.minecraft.skin.core.util.SectionUtils;
 
@@ -49,7 +49,7 @@ public class SkinReader {
 		String line = null;
 		
 		try {
-			reader = FileUtils.loadConfig(configPath);
+			reader = App.loadConfig(configPath);
 			
 			while ((line = reader.readLine()) != null)   {
 				Section section = SectionUtils.parseSection(line, suffix);
