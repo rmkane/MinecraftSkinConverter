@@ -6,6 +6,10 @@ This project will convert pre-1.8 skins into 1.8 skins. You can choose to conver
 
 - [About](#about)
 - [Building the Project](#building-the-project)
+  - [Set Up Environment Variables](#set-up-environment-variables)
+  - [Convert to Eclipse Project](#convert-to-eclipse-project)
+  - [Export Project to JAR File](#export-project-to-jar-file)
+  - [Execute the JAR File](#execute-the-jar-file)
 - [Contribute](#contribute)
 - [License](#license)
 
