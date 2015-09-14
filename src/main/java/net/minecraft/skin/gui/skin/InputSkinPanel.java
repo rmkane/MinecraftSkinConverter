@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
 import net.minecraft.skin.core.util.ImageUtils;
-import net.minecraft.skin.gui.util.GuiUtils;
+import net.minecraft.skin.gui.util.DialogUtils;
 
 public class InputSkinPanel extends SkinPanel {
 	private static final long serialVersionUID = 1123342531732136208L;
@@ -48,13 +48,13 @@ public class InputSkinPanel extends SkinPanel {
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = fileChooser.getSelectedFile();
-			GuiUtils.showSuccessMessage("Opening: " + file.getName() + "...");
+			DialogUtils.showSuccessMessage("Opening: " + file.getName() + "...");
 
 			// Load and draw image.
 			image = (BufferedImage) ImageUtils.loadImage(file.getAbsolutePath(), false);
 
 			if (image == null) {
-				GuiUtils.showErrorMessage("Not a valid image file.");
+				DialogUtils.showErrorMessage("Not a valid image file.");
 				throw new IOException();
 			}
 
@@ -62,7 +62,7 @@ public class InputSkinPanel extends SkinPanel {
 			setImage(image);
 			setFilePath(file.getAbsolutePath());
 		} else {
-			GuiUtils.showSuccessMessage("Open command cancelled.");
+			DialogUtils.showSuccessMessage("Open command cancelled.");
 		}
 	}
 	

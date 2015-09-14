@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 
 def mainClass = "net.minecraft.skin.App"
-version = '1.0'
+version = '1.0.0-alpha'
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6

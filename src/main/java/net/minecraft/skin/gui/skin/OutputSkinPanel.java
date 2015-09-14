@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 
-import net.minecraft.skin.gui.util.GuiUtils;
+import net.minecraft.skin.gui.util.DialogUtils;
 
 public class OutputSkinPanel extends SkinPanel {
 	private static final long serialVersionUID = -4132272902757750659L;
@@ -29,7 +29,7 @@ public class OutputSkinPanel extends SkinPanel {
 		BufferedImage outputImage = this.getImage();
 		
 		if (outputImage == null) {
-			GuiUtils.showErrorMessage("Cannot export because the output image is null.");
+			DialogUtils.showErrorMessage("Cannot export because the output image is null.");
 			return;
 		}
 
@@ -37,16 +37,16 @@ public class OutputSkinPanel extends SkinPanel {
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = fileChooser.getSelectedFile();
-			GuiUtils.showSuccessMessage("Saving: " + file.getName() + "...");
+			DialogUtils.showSuccessMessage("Saving: " + file.getName() + "...");
 
 			try {
 				ImageIO.write(outputImage, "png", file);
-				GuiUtils.showSuccessMessage("Successfully exported: " + file.getName());
+				DialogUtils.showSuccessMessage("Successfully exported: " + file.getName());
 			} catch (IOException e1) {
-				GuiUtils.showErrorMessage("Could not save: " + file.getName());
+				DialogUtils.showErrorMessage("Could not save: " + file.getName());
 			}
 		} else {
-			GuiUtils.showSuccessMessage("Save command cancelled.");
+			DialogUtils.showSuccessMessage("Save command cancelled.");
 		}
 	}
 	

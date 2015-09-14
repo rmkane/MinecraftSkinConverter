@@ -6,24 +6,29 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import net.minecraft.skin.core.io.ConfigMap;
 import net.minecraft.skin.core.util.FileUtils;
-import net.minecraft.skin.gui.MainPanel;
+import net.minecraft.skin.gui.AppConfig;
+import net.minecraft.skin.gui.AppIcons;
+import net.minecraft.skin.gui.MainView;
 
 public class App {
-	private static final String APPLICATION_NAME = "Mincraft Skin Converter";
-
 	public static void main(String[] args) {
 		setLookAndFeel();
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				JFrame frame = new JFrame(APPLICATION_NAME);
-				MainPanel panel = new MainPanel();
+				JFrame frame = new JFrame(AppConfig.APP_TITLE);
+				MainView view = new MainView();
 
-				// Inject config map.
-				panel.setConfigMap(defaultConfigMap());
+				// Inject configuration map.
+				view.setConfigMap(defaultConfigMap());
 
+				// Set application icon and menu.
+				frame.setIconImage(AppIcons.getAppImage());
+				frame.setJMenuBar(view.getMenuBar());
+				
+				// Render the frame.
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setContentPane(panel);
+				frame.setContentPane(view);
 				frame.pack();
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
